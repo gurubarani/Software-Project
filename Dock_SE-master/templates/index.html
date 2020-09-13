@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>BEMS - Electives Management System | Home</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{url_for('static',filename='img/core-img/favicon.ico')}}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="{{url_for('index')}}"><img src="{{url_for('static',filename='img/core-img/logo.png')}}" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="{{url_for('index')}}">Home</a></li>
+                                <li><a href="{{url_for('courses')}}">Courses</a></li>
+                                {% if logged == 1 %}
+                                <li><a href="{{url_for('regular_page')}}">My Preferences</a></li>
+                                {% endif %}
+                                {% if admin == 1 %}
+                                <li><a href="{{url_for('regular_page')}}">All Student Preferences</a></li>
+                                <li><a href="{{url_for('admin_console')}}">Manage Students</a></li>
+                                {% endif %}
+                            </ul>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            <!-- Register / Login -->
+                            <div class="register-login-area">
+                                {% if (logged == 0 and admin == 0) %}
+                                <a href="{{url_for('login')}}" class="btn active">Login</a>
+                                {% else %}
+                                <a href="{{url_for('logout')}}" class="btn active">Logout</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url('/static/img/bg-img/bg1.jpg')">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <!-- Hero Content -->
+                    <div class="hero-content text-center">
+                        <h2>Electives Management System (BEMS)</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Cool Facts Area Start ##### -->
+    <section class="cool-facts-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- Single Cool Facts Area -->
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <div class="icon">
+                            <img src="{{url_for('static',filename='img/core-img/docs.png')}}" alt="">
+                        </div>
+                        <h2><span class="counter">350</span></h2>
+                        <h5>+ students</h5>
+                    </div>
+                </div>
+
+                <!-- Single Cool Facts Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <div class="icon">
+                            <img src="{{url_for('static',filename='img/core-img/star.png')}}" alt="">
+                        </div>
+                        <h2><span class="counter">20</span></h2>
+                        <h5> + Dedicated Teachers</h5>
+                    </div>
+                </div>
+				
+                <!-- Single Cool Facts Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="1000ms">
+                        <div class="icon">
+                            <img src="{{url_for('static',filename='img/core-img/earth.png')}}" alt="">
+                        </div>
+                        <h2><span class="counter">9</span></h2>
+                        <h5>Available Courses</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Cool Facts Area End ##### -->
+
+    <!-- ##### Popular Courses Start ##### -->
+    <section class="popular-courses-area section-padding-100-0" style="background-image: url('/static/img/core-img/texture.png')">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Popular Electives</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[0]+'.png')}}" style="width:640px;height:250px;" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[0]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[0]}}</a>
+                            </div>
+                            <p>{{cdesc[0]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[0]}} seats available
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[1]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[1]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[1]}}</a>
+                            </div>
+                            <p>{{cdesc[1]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[1]}} seats available
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[2]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[2]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[2]}}</a>
+                            </div>
+                            <p>{{cdesc[2]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[2]}} seats available
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Popular Courses End ##### -->
+
+    <!-- ##### Best Tutors Start ##### -->
+    <section class="best-tutors-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Teaching Faculties</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="tutors-slide owl-carousel wow fadeInUp" data-wow-delay="250ms">
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="{{url_for('static',filename='img/bg-img/t1.jpg')}}" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Dr. Ganesh Neelakanta Iyer</h5>
+                                <span>Associate Prof.</span>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="{{url_for('static',filename='img/bg-img/t2.jpg')}}" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Dr. Jeyakumar G</h5>
+                                <span>Associate Prof.</span>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="{{url_for('static',filename='img/bg-img/t3.jpg')}}" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Dr. Senthil Kumar T</h5>
+                                <span>Associate Prof.</span>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="{{url_for('static',filename='img/bg-img/t4.jpg')}}" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Jevitha K P</h5>
+                                <span>Asst. Prof.</span>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="{{url_for('static',filename='img/bg-img/t5.jpg')}}" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Vamsee Krishna Kiran M</h5>
+                                <span>Asst. Prof.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Tutors End ##### -->
+
+    
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{{url_for('static',filename='js/jquery/jquery-2.2.4.min.js')}}"></script>
+    <!-- Popper js -->
+    <script src="{{url_for('static',filename='js/bootstrap/popper.min.js')}}"></script>
+    <!-- Bootstrap js -->
+    <script src="{{url_for('static',filename='js/bootstrap/bootstrap.min.js')}}"></script>
+    <!-- All Plugins js -->
+    <script src="{{url_for('static',filename='js/plugins/plugins.js')}}"></script>
+    <!-- Active js -->
+    <script src="{{url_for('static',filename='js/active.js')}}"></script>
+</body>
+
+</html>

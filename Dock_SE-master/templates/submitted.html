@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>BEMS - Electives Management System | Regular Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{url_for('static',filename='img/core-img/favicon.ico')}}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="{{url_for('index')}}"><img src="{{url_for('static',filename='img/core-img/logo.png')}}" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="{{url_for('index')}}">Home</a></li>
+                                <li><a href="{{url_for('courses')}}">Courses</a></li>
+                                <li><a href="{{url_for('regular_page')}}">All Student Preferences</a></li>
+                                <li><a href="{{url_for('admindownload')}}">Download as CSV</a></li>
+                                <li><a href="{{url_for('admin_console')}}">Manage Students</a></li>
+                                <li><a href="{{url_for('attendance_page')}}">Generate Attendance</a></li>
+                                <li><a href="{{url_for('stats_page')}}">Statistics</a></li>
+                                <li><a href="{{url_for('add_course')}}">Add Course</a></li>
+                            </ul>
+
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+
+                            <!-- Register / Login -->
+                            <div class="register-login-area">
+                                <a href="{{url_for('logout')}}" class="btn active">Logout</a>
+                            </div>
+
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Regular Page Area Start ##### -->
+    <div class="regular-page-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-content">
+                        <span style="text-align:center;"><p class="mylabel info" style="font-size:20px">Info: Your course request for {{cname}} has been registered. Please wait confirmation from Exam Office </p></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Regular Page Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{{url_for('static',filename='js/jquery/jquery-2.2.4.min.js')}}"></script>
+    <!-- Popper js -->
+    <script src="{{url_for('static',filename='js/bootstrap/popper.min.js')}}"></script>
+    <!-- Bootstrap js -->
+    <script src="{{url_for('static',filename='js/bootstrap/bootstrap.min.js')}}"></script>
+    <!-- All Plugins js -->
+    <script src="{{url_for('static',filename='js/plugins/plugins.js')}}"></script>
+    <!-- Active js -->
+    <script src="{{url_for('static',filename='js/active.js')}}"></script>
+</body>
+
+</html>

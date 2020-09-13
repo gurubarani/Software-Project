@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>BEMS - Electives Management System | Courses</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{url_for('static',filename='img/core-img/favicon.ico')}}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="{{url_for('index')}}"><img src="{{url_for('static',filename='img/core-img/logo.png')}}" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="{{url_for('index')}}">Home</a></li>
+                                <li><a href="{{url_for('courses')}}">Courses</a></li>
+                                {% if logged == 1 %}
+                                <li><a href="{{url_for('regular_page')}}">My Preferences</a></li>
+                                {% endif %}
+                                {% if admin == 1 %}
+                                <li><a href="{{url_for('regular_page')}}">All Student Preferences</a></li>
+                                <li><a href="{{url_for('admin_console')}}">Manage Students</a></li>
+                                {% endif %}
+                            </ul>
+
+                          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            <!-- Register / Login -->
+                            <div class="register-login-area">
+                                {% if (logged == 0 and admin == 0) %}
+                                <a href="{{url_for('login')}}" class="btn active">Login</a>
+                                {% else %}
+                                <a href="{{url_for('logout')}}" class="btn active">Logout</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area">
+        <!-- Breadcumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{url_for('index')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{url_for('courses')}}">Courses</a></li>
+            </ol>
+        </nav>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+    <div class="modal fade" id="editModal1" role="dialog" aria-labelledby="editModalLabel1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel1">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="11">1</label><input type="radio" value="1" id="11" name="pref1">
+                <label for="12">2</label><input type="radio" value="2" id="12" name="pref1">
+                <label for="13">3</label><input type="radio" value="3" id="13" name="pref1">
+                <label for="14">4</label><input type="radio" value="4" id="14" name="pref1">
+                <label for="15">5</label><input type="radio" value="5" id="15" name="pref1">
+                <label for="16">6</label><input type="radio" value="6" id="16" name="pref1">
+                <label for="17">7</label><input type="radio" value="7" id="17" name="pref1">
+                <label for="18">8</label><input type="radio" value="8" id="18" name="pref1">
+                <label for="19">9</label><input type="radio" value="9" id="19" name="pref1">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit1" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal2" role="dialog" aria-labelledby="editModalLabel2" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel2">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="21">1</label><input type="radio" value="1" id="21" name="pref2">
+                <label for="22">2</label><input type="radio" value="2" id="22" name="pref2">
+                <label for="23">3</label><input type="radio" value="3" id="23" name="pref2">
+                <label for="24">4</label><input type="radio" value="4" id="24" name="pref2">
+                <label for="25">5</label><input type="radio" value="5" id="25" name="pref2">
+                <label for="26">6</label><input type="radio" value="6" id="26" name="pref2">
+                <label for="27">7</label><input type="radio" value="7" id="27" name="pref2">
+                <label for="28">8</label><input type="radio" value="8" id="28" name="pref2">
+                <label for="29">9</label><input type="radio" value="9" id="29" name="pref2">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit2" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal3" role="dialog" aria-labelledby="editModalLabel3" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel3">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="31">1</label><input type="radio" value="1" id="31" name="pref3">
+                <label for="32">2</label><input type="radio" value="2" id="32" name="pref3">
+                <label for="33">3</label><input type="radio" value="3" id="33" name="pref3">
+                <label for="34">4</label><input type="radio" value="4" id="34" name="pref3">
+                <label for="35">5</label><input type="radio" value="5" id="35" name="pref3">
+                <label for="36">6</label><input type="radio" value="6" id="36" name="pref3">
+                <label for="37">7</label><input type="radio" value="7" id="37" name="pref3">
+                <label for="38">8</label><input type="radio" value="8" id="38" name="pref3">
+                <label for="39">9</label><input type="radio" value="9" id="39" name="pref3">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit3" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal4" role="dialog" aria-labelledby="editModalLabel4" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel4">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="41">1</label><input type="radio" value="1" id="41" name="pref4">
+                <label for="42">2</label><input type="radio" value="2" id="42" name="pref4">
+                <label for="43">3</label><input type="radio" value="3" id="43" name="pref4">
+                <label for="44">4</label><input type="radio" value="4" id="44" name="pref4">
+                <label for="45">5</label><input type="radio" value="5" id="45" name="pref4">
+                <label for="46">6</label><input type="radio" value="6" id="46" name="pref4">
+                <label for="47">7</label><input type="radio" value="7" id="47" name="pref4">
+                <label for="48">8</label><input type="radio" value="8" id="48" name="pref4">
+                <label for="49">9</label><input type="radio" value="9" id="49" name="pref4">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit4" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal5" role="dialog" aria-labelledby="editModalLabel5" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel5">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="51">1</label><input type="radio" value="1" id="51" name="pref5">
+                <label for="52">2</label><input type="radio" value="2" id="52" name="pref5">
+                <label for="53">3</label><input type="radio" value="3" id="53" name="pref5">
+                <label for="54">4</label><input type="radio" value="4" id="54" name="pref5">
+                <label for="55">5</label><input type="radio" value="5" id="55" name="pref5">
+                <label for="56">6</label><input type="radio" value="6" id="56" name="pref5">
+                <label for="57">7</label><input type="radio" value="7" id="57" name="pref5">
+                <label for="58">8</label><input type="radio" value="8" id="58" name="pref5">
+                <label for="59">9</label><input type="radio" value="9" id="59" name="pref5">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit5" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal6" role="dialog" aria-labelledby="editModalLabel6" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel6">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="61">1</label><input type="radio" value="1" id="61" name="pref6">
+                <label for="62">2</label><input type="radio" value="2" id="62" name="pref6">
+                <label for="63">3</label><input type="radio" value="3" id="63" name="pref6">
+                <label for="64">4</label><input type="radio" value="4" id="64" name="pref6">
+                <label for="65">5</label><input type="radio" value="5" id="65" name="pref6">
+                <label for="66">6</label><input type="radio" value="6" id="66" name="pref6">
+                <label for="67">7</label><input type="radio" value="7" id="67" name="pref6">
+                <label for="68">8</label><input type="radio" value="8" id="68" name="pref6">
+                <label for="69">9</label><input type="radio" value="9" id="69" name="pref6">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit6" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal7" role="dialog" aria-labelledby="editModalLabel7" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel7">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="71">1</label><input type="radio" value="1" id="71" name="pref7">
+                <label for="72">2</label><input type="radio" value="2" id="72" name="pref7">
+                <label for="73">3</label><input type="radio" value="3" id="73" name="pref7">
+                <label for="74">4</label><input type="radio" value="4" id="74" name="pref7">
+                <label for="75">5</label><input type="radio" value="5" id="75" name="pref7">
+                <label for="76">6</label><input type="radio" value="6" id="76" name="pref7">
+                <label for="77">7</label><input type="radio" value="7" id="77" name="pref7">
+                <label for="78">8</label><input type="radio" value="8" id="78" name="pref7">
+                <label for="79">9</label><input type="radio" value="9" id="79" name="pref7">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit7" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal8" role="dialog" aria-labelledby="editModalLabel8" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel8">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="81">1</label><input type="radio" value="1" id="81" name="pref8">
+                <label for="82">2</label><input type="radio" value="2" id="82" name="pref8">
+                <label for="83">3</label><input type="radio" value="3" id="83" name="pref8">
+                <label for="84">4</label><input type="radio" value="4" id="84" name="pref8">
+                <label for="85">5</label><input type="radio" value="5" id="85" name="pref8">
+                <label for="86">6</label><input type="radio" value="6" id="86" name="pref8">
+                <label for="87">7</label><input type="radio" value="7" id="87" name="pref8">
+                <label for="88">8</label><input type="radio" value="8" id="88" name="pref8">
+                <label for="89">9</label><input type="radio" value="9" id="89" name="pref8">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit8" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editModal9" role="dialog" aria-labelledby="editModalLabel9" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editModalLabel9">Choose Preference</h4>
+          </div>
+          <div class="modal-body">
+            <form role="form" action="{{url_for('process_prefs')}}" method="POST">
+                <h5>Preference: </h5>
+                <br/>
+                <label for="91">1</label><input type="radio" value="1" id="91" name="pref9">
+                <label for="92">2</label><input type="radio" value="2" id="92" name="pref9">
+                <label for="93">3</label><input type="radio" value="3" id="93" name="pref9">
+                <label for="94">4</label><input type="radio" value="4" id="94" name="pref9">
+                <label for="95">5</label><input type="radio" value="5" id="95" name="pref9">
+                <label for="96">6</label><input type="radio" value="6" id="96" name="pref9">
+                <label for="97">7</label><input type="radio" value="7" id="97" name="pref9">
+                <label for="98">8</label><input type="radio" value="8" id="98" name="pref9">
+                <label for="99">9</label><input type="radio" value="9" id="99" name="pref9">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btnSubmit9" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="Modalx" role="dialog" aria-labelledby="ModalLabelx" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-30">
+                            <div class="page-content">
+                                <h5>Legend</h5>
+                                Valid Preference  -
+                                <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G1.png')}}">
+                                <br/>
+                                Preference Not Yet Given  -
+                                <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                                <br/>
+                                Conflict Exists - Resolve  -
+                                <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R1.png')}}">
+                                <br/>
+                                Click on "Commit Preferences" to submit preferences to DB
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- ##### Catagory ##### -->
+    <div class="clever-catagory bg-img d-flex align-items-center justify-content-center p-3" style="background-image: url(/static/img/bg-img/bg2.jpg);">
+        <h3>Electives Available</h3>
+    </div>
+
+    <!-- ##### Popular Course Area Start ##### -->
+    <section class="popular-courses-area section-padding-100">
+        <div class="container">
+            {% if (admin != 1 and logged == 1)%}
+            <div class="container section-padding-70">
+            {% if errstring != '' %}
+            <p class="mylabel danger" style="text-align: center;font-size:20px">{{errstring}}</p>
+            {% endif %}
+            {% if assigned != '0' %}
+            <span style="text-align:center;"><p class="mylabel info" style="font-size:20px">Info: {{assigned}}</p></span>
+            <br/>
+            <br/>
+            {% endif %}
+            <a data-toggle="modal" data-target="#Modalx" style="background-color:#3762f0;padding:15px">SHOW LEGEND</a>
+            <div style="float: right">
+            <a href="{{url_for('commit_prefs')}}" style="background-color:#3762f0;padding:15px">COMMIT PREFERENCES</a>
+            </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="100ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[0]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[0]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[0]}}</a>
+                            </div>
+                            <p>{{cdesc[0]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[0] != '-1' and conflict[0] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[0]+'.png')}}">
+                            {% elif (prefs[0] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[0]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[0]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal1" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="200ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[1]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[1]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[1]}}</a>
+                            </div>
+                            <p>{{cdesc[1]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[1] != '-1' and conflict[1] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[1]+'.png')}}">
+                            {% elif (prefs[1] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[1]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[1]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal2" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="300ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[2]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[2]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[2]}}</a>
+                            </div>
+                            <p>{{cdesc[2]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[2] != '-1' and conflict[2] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[2]+'.png')}}">
+                            {% elif (prefs[2] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[2]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[2]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal3" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="100ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[3]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[3]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[3]}}</a>
+                            </div>
+                            <p>{{cdesc[3]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[3] != '-1' and conflict[3] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[3]+'.png')}}">
+                            {% elif (prefs[3] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[3]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[3]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal4" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="200ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[4]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[4]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[4]}}</a>
+                            </div>
+                            <p>{{cdesc[4]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[4] != '-1' and conflict[4] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[4]+'.png')}}">
+                            {% elif (prefs[4] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[4]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[4]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal5" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="300ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[5]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[5]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[5]}}</a>
+                            </div>
+                            <p>{{cdesc[5]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[5] != '-1' and conflict[5] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[5]+'.png')}}">
+                            {% elif (prefs[5] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[5]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[5]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0' %}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal6" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="100ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[6]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[6]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[6]}}</a>
+                            </div>
+                            <p>{{cdesc[6]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[6] != '-1' and conflict[6] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[6]+'.png')}}">
+                            {% elif (prefs[6] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[6]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[6]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal7" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="200ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[7]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[7]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[7]}}</a>
+                            </div>
+                            <p>{{cdesc[7]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[7] != '-1' and conflict[7] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[7]+'.png')}}">
+                            {% elif (prefs[7] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[7]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[7]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal8" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Single Popular Course -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="300ms">
+                        <img src="{{url_for('static',filename='img/core-img/'+cname[8]+'.png')}}" style="width:640px;height:250px;"  alt="">
+                        <!-- Course Content -->
+                        <div class="course-content">
+                            <h4>{{cname[8]}}</h4>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">{{cid[8]}}</a>
+                            </div>
+                            <p>{{cdesc[8]}}</p>
+                        </div>
+                        <!-- Seat Rating Fee -->
+                        <div class="seat-rating-fee d-flex justify-content-between">
+                            {% if (prefs[8] != '-1' and conflict[8] == 0 and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/G'+prefs[8]+'.png')}}">
+                            {% elif (prefs[8] == '-1' and logged == 1) %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/warn.png')}}">
+                            {% elif logged == 1 %}
+                            <img style="width:48px;height:48px" src="{{url_for('static',filename='img/core-img/R'+prefs[8]+'.png')}}">
+                            {% endif %}
+                            <div class="seat-rating h-100 d-flex align-items-center">
+                                <div class="seat">
+                                    <i class="fa fa-user" aria-hidden="true"></i> {{seats_left[8]}} seats available
+                                </div>
+                            </div>
+                            {% if logged == 1 and assigned =='0'%}
+                            <div class="course-fee h-100">
+                                <a data-toggle="modal" data-target="#editModal9" class="free">Select</a>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+                {% if logged == 1 %}
+                <div style="align:center">
+
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Popular Course Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{{url_for('static',filename='js/jquery/jquery-2.2.4.min.js')}}"></script>
+    <!-- Popper js -->
+    <script src="{{url_for('static',filename='js/bootstrap/popper.min.js')}}"></script>
+    <!-- Bootstrap js -->
+    <script src="{{url_for('static',filename='js/bootstrap/bootstrap.min.js')}}"></script>
+    <!-- All Plugins js -->
+    <script src="{{url_for('static',filename='js/plugins/plugins.js')}}"></script>
+    <!-- Active js -->
+    <script src="{{url_for('static',filename='js/active.js')}}"></script>
+</body>
+
+</html>
